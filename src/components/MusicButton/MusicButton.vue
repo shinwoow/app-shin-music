@@ -39,10 +39,6 @@ export default {
     if (this.top != -1 || this.left != -1) {
       el.style.top = this.top + "px";
       el.style.left = this.left + "px";
-    } else {
-      console.log(el.style);
-      this.setTop(el.style.top);
-      this.setLeft(el.style.left);
     }
   },
   computed: {
@@ -118,8 +114,24 @@ export default {
         );
       this.timeOutEvent = 0;
       this.touchStatus = 0;
-      this.setTop(event.changedTouches[0].clientY);
-      this.setLeft(event.changedTouches[0].clientX);
+
+      //获取并保存当前元素位置
+      let el = document.getElementsByClassName("music-button")[0];
+      this.setTop(
+        getComputedStyle(el, null)
+          .getPropertyValue("top")
+          .split("p")[0]
+      );
+      this.setLeft(
+        getComputedStyle(el, null)
+          .getPropertyValue("left")
+          .split("p")[0]
+      );
+      console.log(
+        getComputedStyle(el, null)
+          .getPropertyValue("width")
+          .split("p")[0]
+      );
     },
 
     /**
@@ -131,17 +143,55 @@ export default {
      * **/
     moveButton(targetX, targetY, el) {
       var that = this;
+      console.log(
+        getComputedStyle(el, null)
+          .getPropertyValue("height")
+          .split("p")[0]
+          .split("p")[0]
+      );
       el.style.top =
-        (targetY > 25
-          ? targetY < document.documentElement.clientHeight - 25
-            ? targetY - 25
-            : document.documentElement.clientHeight - 50
+        (targetY >
+        getComputedStyle(el, null)
+          .getPropertyValue("height")
+          .split("p")[0] /
+          2
+          ? targetY <
+            document.documentElement.clientHeight -
+              getComputedStyle(el, null)
+                .getPropertyValue("height")
+                .split("p")[0] /
+                2
+            ? targetY -
+              getComputedStyle(el, null)
+                .getPropertyValue("height")
+                .split("p")[0] /
+                2
+            : document.documentElement.clientHeight -
+              getComputedStyle(el, null)
+                .getPropertyValue("height")
+                .split("p")[0]
           : 0) + "px";
       el.style.left =
-        (targetX > 25
-          ? targetX < document.documentElement.clientWidth - 25
-            ? targetX - 25
-            : document.documentElement.clientWidth - 50
+        (targetX >
+        getComputedStyle(el, null)
+          .getPropertyValue("width")
+          .split("p")[0] /
+          2
+          ? targetX <
+            document.documentElement.clientWidth -
+              getComputedStyle(el, null)
+                .getPropertyValue("width")
+                .split("p")[0] /
+                2
+            ? targetX -
+              getComputedStyle(el, null)
+                .getPropertyValue("width")
+                .split("p")[0] /
+                2
+            : document.documentElement.clientWidth -
+              getComputedStyle(el, null)
+                .getPropertyValue("width")
+                .split("p")[0]
           : 0) + "px";
     },
 

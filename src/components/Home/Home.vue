@@ -51,9 +51,14 @@ export default {
     onSearch() {},
     getUser() {
       var that = this;
-      this.$api.music.getMusic().then(res => {
-        that.musicList = res.data;
-      });
+      this.$api.music
+        .getMusic()
+        .then(res => {
+          that.musicList = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     handleLove(e) {
       console.log(e.path[2].outerText.toString());

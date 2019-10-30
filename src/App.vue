@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <!-- <keep-alive> -->
-    <music-bar v-show="showBar" />
-    <music-button v-show="!showBar" />
+    <music-bar v-if="showBar" />
+    <music-button v-if="!showBar" />
     <!-- </keep-alive> -->
     <transition name="fade">
       <router-view />

@@ -26,13 +26,53 @@ export default {
       left: state => state.bar.left
     })
   },
-  created() {
-    console.log(this.top);
-    if (this.top != -1 || this.left != -1) {
-      let el = document.getElementsByClassName("bar")[0];
-      // el.style.top = this.top;
-      // el.style.left = this.left;
-    }
+  mounted() {
+    //调整bar的位置
+    let el = document.getElementsByClassName("bar")[0];
+    el.style.top =
+      (this.top >
+      getComputedStyle(el, null)
+        .getPropertyValue("height")
+        .split("p")[0] /
+        2
+        ? this.top <
+          document.documentElement.clientHeight -
+            getComputedStyle(el, null)
+              .getPropertyValue("height")
+              .split("p")[0] /
+              2
+          ? this.top -
+            getComputedStyle(el, null)
+              .getPropertyValue("height")
+              .split("p")[0] /
+              2
+          : document.documentElement.clientHeight -
+            getComputedStyle(el, null)
+              .getPropertyValue("height")
+              .split("p")[0]
+        : 0) + "px";
+    el.style.left =
+      (this.left >
+      getComputedStyle(el, null)
+        .getPropertyValue("width")
+        .split("p")[0] /
+        2
+        ? this.left <
+          document.documentElement.clientWidth -
+            getComputedStyle(el, null)
+              .getPropertyValue("width")
+              .split("p")[0] /
+              2
+          ? this.left -
+            getComputedStyle(el, null)
+              .getPropertyValue("width")
+              .split("p")[0] /
+              2
+          : document.documentElement.clientWidth -
+            getComputedStyle(el, null)
+              .getPropertyValue("width")
+              .split("p")[0]
+        : 0) + "px";
   },
   methods: {
     handlePlay() {
@@ -41,11 +81,9 @@ export default {
     handleLast() {},
     handleBefore() {},
     handleSize() {},
-    ...mapMutations(["play", "pause", "changeBar", "setTop", "setLeft"])
+    ...mapMutations(["play", "pause", "changeBar"])
   },
-  beforeDestroy() {
-    
-  }
+  beforeDestroy() {}
 };
 </script>
 <style lang="less" scoped>
