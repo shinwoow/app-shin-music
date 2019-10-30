@@ -1,0 +1,4 @@
+2.px2rem-loader未配置完成
+3.music-button偶尔失灵
+4.Home页切换自动刷新
+5.获取当前得歌曲索引位置
