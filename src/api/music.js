@@ -26,7 +26,25 @@ const music = {
   // post提交    
   login(params) {
     return axios.post(`${baseUrl}/accesstoken`, qs.stringify(params));
+  },
+  //文件上传
+  uploadFilds(formDate) {
+    console.log(formDate)
+    return axios.create({
+      responseType: "json",
+    }).post(`${baseUrl}/uploadFilds`, formDate);
   }
+  // uploadFile(params) {
+  //   let formData = new FormData();
+  //   console.log(params.file)
+  //   formData.append("uploadFile", params.file, params.file.name);
+  //   const config = {
+  //     headers: {
+  //       "Content-Type": "multipart/form-data;boundary=" + new Date().getTime()
+  //     }
+  //   };
+  //   return axios.post(`${baseUrl}/upload`, formData, config)
+  // }
 
 }
 

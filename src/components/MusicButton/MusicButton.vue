@@ -8,8 +8,10 @@
   下滑
 -->
 <template>
-  <section class="music-button">
-    <div class="content" ref="content" @click="changeBar"></div>
+  <section>
+    <div class="music-button">
+      <div class="content" ref="content" @click="changeBar"></div>
+    </div>
   </section>
 </template>
 
@@ -34,11 +36,12 @@ export default {
   },
   mounted() {
     this.TouchMove();
-    console.log(this.top);
     let el = document.getElementsByClassName("music-button")[0];
+    let h = this.getStyle(el, "height");
+    let w = this.getStyle(el, "width");
     if (this.top != -1 || this.left != -1) {
-      el.style.top = this.top + "px";
-      el.style.left = this.left + "px";
+      el.style.top = this.top - h / 2 + "px";
+      el.style.left = this.left - w / 2 + "px";
     }
   },
   computed: {
@@ -117,21 +120,18 @@ export default {
 
       //获取并保存当前元素位置
       let el = document.getElementsByClassName("music-button")[0];
-      this.setTop(
-        getComputedStyle(el, null)
-          .getPropertyValue("top")
-          .split("p")[0]
-      );
-      this.setLeft(
-        getComputedStyle(el, null)
-          .getPropertyValue("left")
-          .split("p")[0]
-      );
-      console.log(
-        getComputedStyle(el, null)
-          .getPropertyValue("width")
-          .split("p")[0]
-      );
+      let h = this.getStyle(el, "height");
+      let w = this.getStyle(el, "width");
+      this.setTop(this.getStyle(el, "top") + h / 2);
+      this.setLeft(this.getStyle(el, "left") + w / 2);
+    },
+    /**
+     * [获取元素位置]
+     * @param [Object] el [元素节点]
+     * @param [String] position [位置样式名]
+     */
+    getStyle(el, position) {
+      return parseInt(getComputedStyle(el, null).getPropertyValue(position));
     },
 
     /**
@@ -143,55 +143,22 @@ export default {
      * **/
     moveButton(targetX, targetY, el) {
       var that = this;
-      console.log(
-        getComputedStyle(el, null)
-          .getPropertyValue("height")
-          .split("p")[0]
-          .split("p")[0]
-      );
+      let clientH = document.documentElement.clientHeight;
+      let clientW = document.documentElement.clientWidth;
+      let h = this.getStyle(el, "height");
+      let w = this.getStyle(el, "height");
+
       el.style.top =
-        (targetY >
-        getComputedStyle(el, null)
-          .getPropertyValue("height")
-          .split("p")[0] /
-          2
-          ? targetY <
-            document.documentElement.clientHeight -
-              getComputedStyle(el, null)
-                .getPropertyValue("height")
-                .split("p")[0] /
-                2
-            ? targetY -
-              getComputedStyle(el, null)
-                .getPropertyValue("height")
-                .split("p")[0] /
-                2
-            : document.documentElement.clientHeight -
-              getComputedStyle(el, null)
-                .getPropertyValue("height")
-                .split("p")[0]
+        (targetY > h / 2
+          ? targetY < clientH - h / 2
+            ? targetY - h / 2
+            : clientH - h
           : 0) + "px";
       el.style.left =
-        (targetX >
-        getComputedStyle(el, null)
-          .getPropertyValue("width")
-          .split("p")[0] /
-          2
-          ? targetX <
-            document.documentElement.clientWidth -
-              getComputedStyle(el, null)
-                .getPropertyValue("width")
-                .split("p")[0] /
-                2
-            ? targetX -
-              getComputedStyle(el, null)
-                .getPropertyValue("width")
-                .split("p")[0] /
-                2
-            : document.documentElement.clientWidth -
-              getComputedStyle(el, null)
-                .getPropertyValue("width")
-                .split("p")[0]
+        (targetX > w / 2
+          ? targetX < clientW - w / 2
+            ? targetX - w / 2
+            : clientW - w
           : 0) + "px";
     },
 

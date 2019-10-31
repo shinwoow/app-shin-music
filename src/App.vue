@@ -1,12 +1,10 @@
 <template>
   <div id="app">
-    <!-- <keep-alive> -->
-    <music-bar v-if="showBar" />
-    <music-button v-if="!showBar" />
-    <!-- </keep-alive> -->
     <transition name="fade">
-      <router-view />
+      <music-bar v-if="showBar" />
+      <music-button v-if="!showBar" />
     </transition>
+    <router-view />
   </div>
 </template>
 
@@ -27,11 +25,4 @@ export default {
 
 <style lang="less" scoped>
 @import "./style/reset.less";
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
 </style>

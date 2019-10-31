@@ -27,51 +27,24 @@ export default {
     })
   },
   mounted() {
-    //调整bar的位置
+    //调整bar的位置不超出屏幕
     let el = document.getElementsByClassName("bar")[0];
+    let clientH = this.getStyle(el, "height");
+    let clientW = this.getStyle(el, "width");
+    let h = document.documentElement.clientHeight;
+    let w = document.documentElement.clientWidth;
+
     el.style.top =
-      (this.top >
-      getComputedStyle(el, null)
-        .getPropertyValue("height")
-        .split("p")[0] /
-        2
-        ? this.top <
-          document.documentElement.clientHeight -
-            getComputedStyle(el, null)
-              .getPropertyValue("height")
-              .split("p")[0] /
-              2
-          ? this.top -
-            getComputedStyle(el, null)
-              .getPropertyValue("height")
-              .split("p")[0] /
-              2
-          : document.documentElement.clientHeight -
-            getComputedStyle(el, null)
-              .getPropertyValue("height")
-              .split("p")[0]
+      (this.top > clientH / 2
+        ? this.top < h - clientH / 2
+          ? this.top - clientH / 2
+          : h - clientH
         : 0) + "px";
     el.style.left =
-      (this.left >
-      getComputedStyle(el, null)
-        .getPropertyValue("width")
-        .split("p")[0] /
-        2
-        ? this.left <
-          document.documentElement.clientWidth -
-            getComputedStyle(el, null)
-              .getPropertyValue("width")
-              .split("p")[0] /
-              2
-          ? this.left -
-            getComputedStyle(el, null)
-              .getPropertyValue("width")
-              .split("p")[0] /
-              2
-          : document.documentElement.clientWidth -
-            getComputedStyle(el, null)
-              .getPropertyValue("width")
-              .split("p")[0]
+      (this.left > clientW / 2
+        ? this.left < w - clientW / 2
+          ? this.left - clientW / 2
+          : w - clientW
         : 0) + "px";
   },
   methods: {
@@ -81,6 +54,9 @@ export default {
     handleLast() {},
     handleBefore() {},
     handleSize() {},
+    getStyle(el, position) {
+      return parseInt(getComputedStyle(el, null).getPropertyValue(position));
+    },
     ...mapMutations(["play", "pause", "changeBar"])
   },
   beforeDestroy() {}
@@ -88,14 +64,15 @@ export default {
 </script>
 <style lang="less" scoped>
 .bar {
-  position: absolute;
+  position: fixed;
   z-index: 999;
   height: 50px;
-  width: 177px;
+  width: 180px;
   text-align: center;
-  border: 1px #e16b8c solid;
+  border: 1px #ff55dd solid;
   border-radius: 10px;
-  background-color: #dc9fb4;
+  background-color: #ff55dd;
+
 }
 
 i {
