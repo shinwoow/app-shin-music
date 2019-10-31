@@ -28,11 +28,6 @@ const music = {
     return axios.post(`${baseUrl}/accesstoken`, qs.stringify(params));
   },
   //文件上传
-  uploadFilds(formDate) {
-    console.log(formDate)
-    return axios.post(`${baseUrl}/uploadFilds`, formDate);
-  },
-
   uploadFile(files) {
     const param = new FormData();
     files.forEach(file => {

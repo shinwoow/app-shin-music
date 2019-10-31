@@ -19,10 +19,11 @@ import {
   Icon,
   Button,
   Uploader,
-  Panel
+  Panel,
+  Toast
 } from 'vant';
 
-Vue.use(NavBar).use(Tabbar).use(TabbarItem).use(Search).use(Cell).use(CellGroup).use(Icon).use(Button).use(Uploader).use(Panel);
+Vue.use(NavBar).use(Tabbar).use(TabbarItem).use(Search).use(Cell).use(CellGroup).use(Icon).use(Button).use(Uploader).use(Panel).use(Toast);
 
 Vue.config.productionTip = false
 Vue.prototype.$api = api //将api模块挂载到全局

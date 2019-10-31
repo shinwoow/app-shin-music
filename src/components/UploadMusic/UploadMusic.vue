@@ -15,15 +15,20 @@ export default {
   methods: {
     submitUpload() {
       let that = this;
+      //前端解决未选择文件问题
+      if (this.fileList.length == 0) {
+        this.$toast.fail("请选择文件");
+        return;
+      }
       this.$api.music
         .uploadFile(this.fileList)
         .then(res => {
-          console.log("res");
-          console.log(res);
+          if (res.code == 200) {
+            console.log(200);
+          }
         })
         .catch(err => {
-          console.log("err");
-          console.log(err);
+          this.$toast.fail("上传失败");
         });
     }
   }
