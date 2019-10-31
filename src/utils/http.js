@@ -91,6 +91,7 @@ const errorHandle = (status, other) => {
           redirect: router.currentRoute.fullPath
         }
       })
+      break
       /**
        * 其他错误
        * 直接抛出错误提示

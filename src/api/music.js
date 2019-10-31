@@ -30,21 +30,23 @@ const music = {
   //文件上传
   uploadFilds(formDate) {
     console.log(formDate)
-    return axios.create({
-      responseType: "json",
-    }).post(`${baseUrl}/uploadFilds`, formDate);
+    return axios.post(`${baseUrl}/uploadFilds`, formDate);
+  },
+
+  uploadFile(files) {
+    const param = new FormData();
+    files.forEach(file => {
+      param.append("file", file.file, file.file.name);
+    });
+    // param.append("file", file.file, file.file.name);
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    };
+    return axios.post(`${baseUrl}/uploadFilds`, param, config);
   }
-  // uploadFile(params) {
-  //   let formData = new FormData();
-  //   console.log(params.file)
-  //   formData.append("uploadFile", params.file, params.file.name);
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data;boundary=" + new Date().getTime()
-  //     }
-  //   };
-  //   return axios.post(`${baseUrl}/upload`, formData, config)
-  // }
 
 }
 
