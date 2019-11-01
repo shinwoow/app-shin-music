@@ -9,7 +9,7 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      musicList: ["http://cloud.hunger-valley.com/music/玫瑰.mp3"],
+      musicList: ["http://127.0.0.1:3000/mp3/%E5%A4%A9%E7%A9%BA%E4%B9%8B%E5%9F%8E.mp3", "http://cloud.hunger-valley.com/music/玫瑰.mp3"],
       palyStatu: false
     };
   },

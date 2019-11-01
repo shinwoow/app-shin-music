@@ -52,7 +52,7 @@ export default {
     getUser() {
       var that = this;
       this.$api.music
-        .getMusic()
+        .getMusicList()
         .then(res => {
           that.musicList = res.data;
         })

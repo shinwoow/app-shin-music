@@ -5,17 +5,17 @@ import base from './base'
 let baseUrl = base.proUrl
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = base.devUrl
+  baseUrl = base.devUrl + '/music'
 } else if (process.env.NODE_ENV == 'production') {
-  baseUrl = base.proUrl
+  baseUrl = base.proUrl + '/music'
 } else {
-  baseUrl = base.devUrl
+  baseUrl = base.devUrl + '/music'
 }
 
 const music = {
 
-  getMusic() {
-    return axios.get(`${baseUrl}/music`)
+  getMusicList() {
+    return axios.get(`${baseUrl}/getMusicList`)
   },
   // 新闻详情,演示    
   getUserDetail(id, params) {

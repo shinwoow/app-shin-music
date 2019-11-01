@@ -1,7 +1,15 @@
 const qs = require('qs')
 import axios from '@/utils/http'; // 导入http中创建的axios实例
+import base from './base'
 
-const baseUrl = 'http://127.0.0.1:3000/api'
+let baseUrl = ''
+if (process.env.NODE_ENV == 'development') {
+  baseUrl = base.devUrl + '/user'
+} else if (process.env.NODE_ENV == 'production') {
+  baseUrl = base.proUrl + '/user'
+} else {
+  baseUrl = base.devUrl + '/user'
+}
 
 const user = {
 
@@ -12,15 +20,15 @@ const user = {
     return axios.get(`${baseUrl}/user`)
   },
   // 新闻详情,演示    
-  getUserDetail (id, params) {        
-    return axios.get(`${baseUrl}/user/${id}`, {            
-        params: params        
-    });    
-},
-// post提交    
-login (params) {        
-    return axios.post(`${baseUrl}/accesstoken`, qs.stringify(params));    
-}
+  getUserDetail(id, params) {
+    return axios.get(`${baseUrl}/user/${id}`, {
+      params: params
+    });
+  },
+  // post提交    
+  login(params) {
+    return axios.post(`${baseUrl}/accesstoken`, qs.stringify(params));
+  }
 
 }
 

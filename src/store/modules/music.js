@@ -6,7 +6,8 @@ const state = {
     name: '',
     index: 0
   },
-  playing: false
+  playing: false,
+  time: 0
 }
 
 // getters
@@ -19,7 +20,7 @@ const actions = {
   updateMusicList({
     commit
   }, items) {
-    commit('updateMusicList', items)
+    commit('updateMusicList', items);
   },
 }
 
@@ -28,11 +29,12 @@ const mutations = {
   updateMusicList(state,
     items
   ) {
-    state.musicList.push(...items)
+    state.musicList.push(...items);
   },
 
   play(state) {
     audio.play();
+    state.time = audio.duration;
     state.playing = true;
   },
   pause(state) {

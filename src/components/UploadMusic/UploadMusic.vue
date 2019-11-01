@@ -15,6 +15,7 @@ export default {
   methods: {
     submitUpload() {
       let that = this;
+
       //前端解决未选择文件问题
       if (this.fileList.length == 0) {
         this.$toast.fail("请选择文件");
@@ -36,6 +37,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .contain {
+  position: flex;
   text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 </style>
