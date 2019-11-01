@@ -21,7 +21,7 @@ export default {
   created() {
     console.log("playing:" + this.playing);
     this.$store.dispatch("updateMusicList", this.musicList);
-    this.setSrc(this.musicList[0]);
+    this.setAudio(this.musicList[0]);
   },
   methods: {
     handlePlay() {
@@ -32,7 +32,7 @@ export default {
         this.pause();
       }
     },
-    ...mapMutations(["play", "pause", "setSrc"])
+    ...mapMutations(["play", "pause", "setAudio"])
   }
 };
 </script>

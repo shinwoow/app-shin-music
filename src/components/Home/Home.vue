@@ -21,7 +21,7 @@
     >
       <!-- 使用 right-icon 插槽来自定义右侧图标 -->
       <van-icon @click="handleLove" name="like-o" class="icon" />
-      <van-icon name="play-circle-o" class="icon" @click="handlePlay(item.music_name)" />
+      <van-icon name="play-circle-o" class="icon" @click="handlePlay(item)" />
       <van-icon
         slot="right-icon"
         name="add-o"
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -48,6 +49,7 @@ export default {
     this.getUser();
   },
   methods: {
+    ...mapMutations(["play", "setAudio"]),
     onSearch() {},
     getUser() {
       var that = this;
@@ -64,7 +66,8 @@ export default {
       console.log(e.path[2].outerText.toString());
     },
     handlePlay(item) {
-      console.log("play: " + item);
+      this.setAudio(item);
+      this.play();
     },
     handlePlayList(item) {
       console.log("list: " + item);

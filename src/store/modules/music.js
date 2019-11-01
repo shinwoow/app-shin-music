@@ -3,7 +3,8 @@ const audio = new Audio();
 const state = {
   musicList: [],
   currentMusic: {
-    name: '',
+    music_name: '',
+    music_path: '',
     index: 0
   },
   playing: false,
@@ -33,16 +34,30 @@ const mutations = {
   },
 
   play(state) {
+    console.log(audio.src)
     audio.play();
     state.time = audio.duration;
     state.playing = true;
   },
   pause(state) {
+    console.log(audio.src)
     audio.pause();
+    
     state.playing = false;
+
   },
-  setSrc(state, item) {
-    audio.src = item;
+  setAudio(state, item) {
+    console.log(item)
+    console.log(typeof item)
+    if (typeof item == 'object') {
+      state.currentMusic.music_name = item.music_name;
+      state.currentMusic.music_path = item.music_path;
+      state.currentMusic.index = item.id;
+      audio.src = item.music_path;
+    } else {
+      audio.src = item
+    }
+
   }
 }
 
