@@ -12,16 +12,28 @@
     </van-search>
 
     <!--music list-->
+    <!-- icon="music" -->
     <van-cell
       v-for="item in musicList"
       :title="item.music_name"
-      icon="music"
-      :key="item.id"
+      :key="item.ID"
       ref="scroll"
+      :class="{'played': playing && (currentIndex == item.ID - 1)}"
     >
       <!-- 使用 right-icon 插槽来自定义右侧图标 -->
       <van-icon @click="handleLove" name="like-o" class="icon" />
-      <van-icon name="play-circle-o" class="icon" @click="handlePlay(item)" />
+      <van-icon
+        name="play-circle-o"
+        v-show="(!playing) || (playing && currentIndex !== item.ID - 1)"
+        class="icon"
+        @click="handlePlay(item)"
+      />
+      <van-icon
+        name="pause-circle-o"
+        v-show="playing && (currentIndex == item.ID - 1)"
+        class="icon"
+        @click="handlePause"
+      />
       <van-icon
         slot="right-icon"
         name="add-o"
@@ -35,7 +47,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   data() {
     return {
@@ -44,23 +56,30 @@ export default {
       offsetTop: 0
     };
   },
-  watch: {},
+  computed: {
+    ...mapState({
+      playing: state => state.music.playing,
+      currentIndex: state => state.music.currentMusic.index
+    })
+  },
   created() {
-    this.getUser();
+    this.getMusicList();
   },
   methods: {
-    ...mapMutations(["play", "setAudio"]),
+    ...mapMutations(["play", "pause", "setAudio", "updateMusicList"]),
     onSearch() {},
-    getUser() {
+    getMusicList() {
       var that = this;
       this.$api.music
         .getMusicList()
         .then(res => {
-          that.musicList = res.data;
+          that.updateMusicList(res.data);
+          that.musicList = that.$store.getters.getMusicList;
         })
         .catch(err => {
           console.log(err);
         });
+      this.setAudio();
     },
     handleLove(e) {
       console.log(e.path[2].outerText.toString());
@@ -68,6 +87,9 @@ export default {
     handlePlay(item) {
       this.setAudio(item);
       this.play();
+    },
+    handlePause() {
+      this.pause();
     },
     handlePlayList(item) {
       console.log("list: " + item);
@@ -94,5 +116,8 @@ export default {
   line-height: inherit;
   width: 30px;
   text-align: center;
+}
+.played {
+  background-color: #ebecee;
 }
 </style>

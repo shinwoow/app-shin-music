@@ -6,7 +6,7 @@
         <i class="fa fa-backward fa-1g" @click="handleBefore"></i>&nbsp;
         <i class="fa fa-play fa-1g" v-show="!playing" @click="handlePlay"></i>
         <i class="fa fa-pause fa-1g" v-show="playing" @click="handlePlay"></i>
-        <i class="fa fa-forward fa-1g" @click="handleLast"></i>&nbsp;
+        <i class="fa fa-forward fa-1g" @click="handleAfter"></i>&nbsp;
         <i class="fa fa-compress fa-1g" @click="changeBar"></i>
       </div>
     </div>
@@ -51,8 +51,12 @@ export default {
     handlePlay() {
       this.playing ? this.pause() : this.play();
     },
-    handleLast() {},
-    handleBefore() {},
+    handleAfter() {
+      this.$store.dispatch("setAfter");
+    },
+    handleBefore() {
+      this.$store.dispatch("setBefore");
+    },
     handleSize() {},
     getStyle(el, position) {
       return parseInt(getComputedStyle(el, null).getPropertyValue(position));
@@ -72,7 +76,6 @@ export default {
   border: 1px #ff55dd solid;
   border-radius: 10px;
   background-color: #ff55dd;
-
 }
 
 i {

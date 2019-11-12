@@ -169,7 +169,6 @@ export default {
      * **/
     handleGesture(directionX, directionY) {
       let angle = (Math.atan2(directionY, directionX) * 180) / Math.PI;
-      console.log(angle);
       let gesture =
         angle < 30 && angle > -30
           ? 1
@@ -183,19 +182,19 @@ export default {
       switch (gesture) {
         case 0:
           console.log("up");
-          this.$store.dispatch("music/updateMusicList", [1, 2, 3]);
+          this.play();
           break;
         case 1:
           console.log("right");
-          this.play();
+          this.$store.dispatch("setAfter");
           break;
         case 2:
           console.log("down");
-          console.log(this.$store.getters["music/getMusicList"]);
+          this.pause();
           break;
         case 3:
-          this.pause();
           console.log("left");
+          this.$store.dispatch("setBefore");
           break;
         case 4:
           console.log("err");
