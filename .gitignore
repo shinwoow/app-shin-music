@@ -14,5 +14,4 @@ yarn-error.log*
 *.sln
 .project
 manifest.json
-src/assets/天空之城.mp3
 *.mp3
